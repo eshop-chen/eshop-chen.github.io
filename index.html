@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线购物网站(Online Shopping)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ff4400;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 5px;
+            margin: 0 5px;
+        }
+
+        .search-bar button {
+            padding: 5px 10px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            padding: 10px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #ff4400;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">E-Shop</div>
+        <!-- <div class="search-bar">
+            <input type="text" placeholder="宝贝">
+            <input type="text" placeholder="店铺">
+            <button>搜索</button>
+        </div> -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="输入搜索内容">
+            <button onclick="searchFunction()">搜索</button>
+        </div>
+        <script>
+            document.getElementById('searchInput').addEventListener('click', function() {
+                var searchKeyword = document.getElementById('searchInput').value;
+                if (searchKeyword.trim() === '') {
+                    alert('请输入搜索关键词');
+                } else {
+                    // 发起一个GET请求
+                    fetch('https://api.example.com/search?query=' + encodeURIComponent(searchKeyword))
+                        .then(response => response.json())
+                        .then(data => {
+                            // 处理搜索结果
+                            console.log(data);
+                            // 在这里更新页面内容，显示搜索结果
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('搜索失败，请稍后再试');
+                        });
+                }
+            });
+        </script>
+    </header>
+    <main>
+        <div class="product-list">
+            <!-- 产品卡片 -->
+            <div class="product-card">
+                <img src="images/product1.jpg" alt="产品1">
+                <div class="product-info">
+                    <div class="product-title">加厚1.5米2米两用梯子家用人字梯折叠梯</div>
+                    <div class="product-price">¥118</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png" alt="产品2">
+                <div class="product-info">
+                    <div class="product-title">公牛转换器插座插头</div>
+                    <div class="product-price">¥24.9</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-we-retail.ym.tencent.com/tsr/goods/dz-3a.png" alt="产品3">
+                <div class="product-info">
+                    <div class="product-title">21cake黑白巧克力慕斯生日蛋糕</div>
+                    <div class="product-price">¥268</div>
+                </div>
+            </div>
+            <!-- 更多产品卡片 -->
+        </div>
+    </main>
+</body>
+</html>
